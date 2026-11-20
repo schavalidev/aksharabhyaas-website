@@ -1,0 +1,12 @@
+# Cloudflare upload settings: the site's files go straight to the domain,
+# and Cloudflare creates the DNS records and HTTPS certificate itself.
+name = "aksharabhyaas"
+compatibility_date = "2026-06-01"
+workers_dev = false
+routes = [
+  { pattern = "www.aksharabhyaas.com", custom_domain = true },
+  { pattern = "aksharabhyaas.com", custom_domain = true }
+]
+
+[assets]
+directory = "."
