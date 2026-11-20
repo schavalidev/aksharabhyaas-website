@@ -1,0 +1,350 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>Aksharabhyaas</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="description" content="Aksharabhyaas listens to a child read their own textbook aloud in Telugu or English, marks every word, and tells the teacher what to practise next.">
+<meta property="og:title" content="Aksharabhyaas · Hear every child read">
+<meta property="og:description" content="Oral reading assessment for Telangana classrooms, in Telugu and English. Every word marked, the trouble named, practice assigned.">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://www.aksharabhyaas.com/">
+<meta property="og:image" content="https://www.aksharabhyaas.com/img/read-report.jpg">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 58'%3E%3Cpath d='M31 45C23 35 16 30 6 30c0 12 10 21 25 21Z' fill='%2380b19b'/%3E%3Cpath d='M33 45c8-10 15-15 25-15 0 12-10 21-25 21Z' fill='%2379ad95'/%3E%3Cpath d='M31 44V8C23 2 14 1 7 2v29c10 0 19 4 24 13Z' fill='%23e9d990'/%3E%3Cpath d='M33 44V8C41 2 50 1 57 2v29c-10 0-19 4-24 13Z' fill='%23f1b746'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Anek+Telugu:wdth,wght@75..125,300..800&family=DM+Sans:opsz,wght@9..40,400;9..40,500;9..40,600;9..40,700&family=Noto+Serif+Telugu:wght@400;500;600&display=swap">
+<style>
+/* Layout: a teacher's reading record. The marked passage leads; the rest reads like a short field report. */
+:root {
+  --paper: #f4f6f0; --card: #ffffff; --ink: #19233e; --muted: #556075; --line: #dce2d6;
+  --sage: #4b7a62; --leaf: #80b19b; --leaf-soft: #e4efe8; --turmeric: #f1b746; --page: #e9d990;
+  --red: #b5432d; --red-soft: #fbe4dd; --band: #19233e; --band-fg: #eef1ea; --band-muted: #aeb8c8; --band-line: #2f3b5a;
+  --display: "Anek Telugu", "DM Sans", system-ui, sans-serif;
+  --body: "DM Sans", system-ui, -apple-system, "Segoe UI", sans-serif;
+  --te: "Noto Serif Telugu", "Noto Sans Telugu", "Telugu Sangam MN", serif;
+}
+@media (prefers-color-scheme: dark) {
+  :root:not([data-theme="light"]) {
+    --paper: #0f1626; --card: #172035; --ink: #e8ece4; --muted: #a4aebf; --line: #283450;
+    --sage: #92c3a8; --leaf-soft: #1b3329; --red: #f08c74; --red-soft: #3e231e;
+    --band: #0a1020; --band-fg: #eef1ea; --band-muted: #9ca8bb; --band-line: #253150; color-scheme: dark;
+  }
+}
+:root[data-theme="dark"] {
+  --paper: #0f1626; --card: #172035; --ink: #e8ece4; --muted: #a4aebf; --line: #283450;
+  --sage: #92c3a8; --leaf-soft: #1b3329; --red: #f08c74; --red-soft: #3e231e;
+  --band: #0a1020; --band-fg: #eef1ea; --band-muted: #9ca8bb; --band-line: #253150; color-scheme: dark;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+@media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } }
+body { margin: 0; background: var(--paper); color: var(--ink); font: 400 1.0625rem/1.6 var(--body); -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: inherit; }
+a:focus-visible, button:focus-visible { outline: 3px solid var(--turmeric); outline-offset: 3px; border-radius: 4px; }
+.wrap { max-width: 1160px; margin: 0 auto; padding-left: max(16px, env(safe-area-inset-left, 0px)); padding-right: max(16px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { font-family: var(--display); font-weight: 650; font-stretch: 92%; line-height: 1.08; margin: 0; text-wrap: balance; letter-spacing: -0.01em; }
+h2 { font-size: clamp(1.9rem, 3.6vw, 2.75rem); }
+h3 { font-size: 1.35rem; line-height: 1.2; }
+p { margin: 0; }
+.eyebrow { font: 600 0.78rem/1.3 var(--body); letter-spacing: 0.09em; text-transform: uppercase; color: var(--sage); }
+.lead { font-size: 1.2rem; color: var(--muted); max-width: 36em; }
+
+/* Header */
+.top { padding-block: 22px; }
+.top .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; flex-wrap: wrap; }
+.brand { display: flex; align-items: center; gap: 12px; text-decoration: none; }
+.brand svg { width: 44px; height: 40px; flex: none; }
+.brand strong { display: block; font: 650 1.45rem/1 var(--display); font-stretch: 95%; letter-spacing: -0.01em; }
+.brand small { display: block; font: 500 0.95rem/1.2 var(--te); color: var(--muted); margin-top: 2px; }
+.top nav { display: flex; gap: 6px 22px; flex-wrap: wrap; font-weight: 500; font-size: 0.98rem; }
+.top nav a { text-decoration: none; color: var(--muted); }
+.top nav a:hover { color: var(--ink); }
+
+/* Hero */
+.hero { padding-block: 40px 72px; }
+.hero .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.05fr); gap: 56px; align-items: center; }
+.hero h1 { font-size: clamp(2.6rem, 5.6vw, 4.4rem); margin-top: 14px; }
+.hero h1 em { font-style: normal; color: var(--sage); }
+.hero .lead { margin-top: 20px; }
+.ctas { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 30px; }
+.btn { display: inline-flex; align-items: center; gap: 8px; padding: 13px 20px; border-radius: 999px; font-weight: 600; text-decoration: none; border: 1.5px solid var(--ink); }
+.btn.primary { background: var(--ink); color: var(--paper); }
+.btn.primary:hover { background: var(--sage); border-color: var(--sage); }
+.btn.ghost:hover { background: var(--card); }
+
+/* The marked passage card */
+.record { background: var(--card); border: 1px solid var(--line); border-radius: 14px; padding: 26px 26px 22px; box-shadow: 0 1px 0 var(--line), 0 18px 40px -28px rgba(25, 35, 62, 0.45); }
+.record-head { display: flex; justify-content: space-between; gap: 12px; align-items: baseline; flex-wrap: wrap; font-size: 0.9rem; color: var(--muted); }
+.record-head b { color: var(--ink); font-weight: 600; font-size: 1rem; }
+.record-head .te { font-family: var(--te); }
+.passage { display: flex; flex-wrap: wrap; gap: 30px 12px; margin-top: 34px; }
+.w { position: relative; display: inline-flex; flex-direction: column; align-items: flex-start; padding: 2px 6px 3px; border-radius: 6px; background: var(--leaf-soft); }
+.w .t { font: 500 1.45rem/1.5 var(--te); }
+.w .r { font-size: 0.74rem; color: var(--muted); letter-spacing: 0.01em; line-height: 1.1; }
+.w.bad { background: var(--red-soft); box-shadow: inset 0 -3px 0 var(--red); }
+.w .said { position: absolute; left: 6px; bottom: 100%; margin-bottom: 3px; white-space: nowrap; font: 500 0.78rem/1.2 var(--te); color: var(--red); }
+.w .said i { font-family: var(--body); font-style: normal; }
+.legend { display: flex; gap: 16px; flex-wrap: wrap; margin-top: 20px; font-size: 0.82rem; color: var(--muted); }
+.legend span { display: inline-flex; align-items: center; gap: 6px; }
+.legend span::before { content: ""; width: 12px; height: 12px; border-radius: 3px; background: var(--leaf-soft); border: 1px solid var(--leaf); }
+.legend .m::before { background: var(--red-soft); border-color: var(--red); }
+.scores { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 10px; margin-top: 20px; padding-top: 18px; border-top: 1px dashed var(--line); }
+.scores div { min-width: 0; }
+.scores strong { display: block; font: 650 1.6rem/1.1 var(--display); font-variant-numeric: tabular-nums; }
+.scores small { display: block; font-size: 0.8rem; color: var(--muted); line-height: 1.35; margin-top: 4px; }
+.plan { margin-top: 16px; padding: 12px 14px; border-radius: 10px; background: var(--paper); font-size: 0.92rem; line-height: 1.5; }
+.plan b { font-weight: 600; }
+.plan .te { font-family: var(--te); }
+.note { margin-top: 10px; font-size: 0.78rem; color: var(--muted); }
+
+/* Sections */
+section { padding-block: 72px; }
+.problem { border-top: 1px solid var(--line); }
+.problem .wrap { display: grid; grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); gap: 48px; }
+.problem p + p { margin-top: 14px; }
+.problem .body { color: var(--muted); font-size: 1.1rem; max-width: 34em; }
+
+.steps-head { max-width: 40em; }
+.steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; counter-reset: step; }
+.steps li { counter-increment: step; border-top: 3px solid var(--ink); padding-top: 16px; min-width: 0; }
+.steps li::before { content: counter(step); display: block; font: 700 0.9rem/1 var(--display); color: var(--sage); margin-bottom: 10px; }
+.steps h3 { font-size: 1.2rem; }
+.steps p { margin-top: 8px; color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
+
+.app { background: var(--card); border-block: 1px solid var(--line); }
+.app-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
+.app-head p { color: var(--muted); max-width: 30em; }
+.shots { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 28px; margin-top: 40px; align-items: start; }
+figure { margin: 0; min-width: 0; }
+figure img { border: 1px solid var(--line); border-radius: 12px; background: #fff; }
+figcaption { margin-top: 12px; font-size: 0.95rem; color: var(--muted); }
+figcaption b { color: var(--ink); font-weight: 600; }
+
+.trust .wrap > h2 { max-width: 18em; }
+.points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 48px; margin-top: 40px; }
+.points > div { min-width: 0; padding-left: 18px; border-left: 3px solid var(--turmeric); }
+.points p { margin-top: 8px; color: var(--muted); }
+
+.status { background: var(--band); color: var(--band-fg); }
+.status .eyebrow { color: var(--turmeric); }
+.status h2 { margin-top: 12px; }
+.cols { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 36px; margin-top: 40px; }
+.cols > div { min-width: 0; padding-top: 16px; border-top: 1px solid var(--band-line); }
+.cols h3 { font-size: 1.15rem; }
+.cols ul { margin: 12px 0 0; padding-left: 1.1em; color: var(--band-muted); }
+.cols li + li { margin-top: 6px; }
+.cols p { margin-top: 12px; color: var(--band-muted); }
+.demo { margin-top: 44px; display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 18px; padding: 20px 22px; border-radius: 12px; background: rgba(241, 183, 70, 0.12); border: 1px solid rgba(241, 183, 70, 0.45); }
+.demo strong { font: 650 1.5rem/1.2 var(--display); color: var(--band-fg); }
+.demo span { color: var(--band-muted); }
+
+.team .wrap { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); gap: 48px; }
+.team p { margin-top: 14px; color: var(--muted); max-width: 32em; }
+.mail { display: inline-block; margin-top: 18px; font: 650 clamp(1.3rem, 2.6vw, 1.75rem)/1.2 var(--display); color: var(--ink); text-decoration-color: var(--turmeric); text-decoration-thickness: 3px; text-underline-offset: 6px; word-break: break-all; }
+.name-te { font-family: var(--te); }
+
+footer { border-top: 1px solid var(--line); padding-block: 28px 40px; font-size: 0.9rem; color: var(--muted); }
+footer .wrap { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
+
+@media (max-width: 980px) {
+  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .cols { grid-template-columns: minmax(0, 1fr); }
+}
+@media (max-width: 860px) {
+  .hero .wrap, .problem .wrap, .shots, .team .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero { padding-block: 16px 56px; }
+  section { padding-block: 56px; }
+  .points { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+}
+@media (max-width: 520px) {
+  .top nav { display: none; }
+  .steps { grid-template-columns: minmax(0, 1fr); }
+  .record { padding: 20px 16px 18px; }
+  .w .t { font-size: 1.25rem; }
+  .scores strong { font-size: 1.3rem; }
+}
+</style>
+</head>
+<body>
+
+<header class="top">
+  <div class="wrap">
+    <a class="brand" href="#top" id="top" aria-label="Aksharabhyaas home">
+      <svg viewBox="0 0 64 58" aria-hidden="true"><path d="M31 45C23 35 16 30 6 30c0 12 10 21 25 21Z" fill="#80b19b"/><path d="M33 45c8-10 15-15 25-15 0 12-10 21-25 21Z" fill="#79ad95"/><path d="M31 44V8C23 2 14 1 7 2v29c10 0 19 4 24 13Z" fill="#e9d990"/><path d="M33 44V8C41 2 50 1 57 2v29c-10 0-19 4-24 13Z" fill="#f1b746"/></svg>
+      <span><strong>Aksharabhyaas</strong><small lang="te">అక్షరాభ్యాసం</small></span>
+    </a>
+    <nav aria-label="Sections">
+      <a href="#how">How it works</a>
+      <a href="#app">The app</a>
+      <a href="#pilot">Pilot</a>
+      <a href="#contact">Contact</a>
+    </nav>
+  </div>
+</header>
+
+<main>
+<section class="hero" aria-labelledby="hero-title">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Oral reading assessment · Telugu and English</p>
+      <h1 id="hero-title">Hear every child read. <em>Know what to teach next.</em></h1>
+      <p class="lead">A child reads a page of their own SCERT textbook aloud. Aksharabhyaas marks every word, names the letters that broke, and gives the teacher practice for exactly those words.</p>
+      <div class="ctas">
+        <a class="btn primary" href="#contact">Talk to us</a>
+        <a class="btn ghost" href="#pilot">See it live on 1 December</a>
+      </div>
+    </div>
+
+    <figure class="record" aria-label="A sample reading, marked word by word">
+      <div class="record-head">
+        <span><b>Karthik</b> · Grade 3 · reading aloud</span>
+        <span>Telugu reader, Lesson 2 · <span class="te" lang="te">బాల భీముడు</span></span>
+      </div>
+      <p class="passage" lang="te">
+        <span class="w"><span class="t">వెంటనే</span><span class="r">ventane</span></span>
+        <span class="w"><span class="t">బాధపడుకుంటూ</span><span class="r">baadhapadukuntoo</span></span>
+        <span class="w bad"><span class="said"><i>read as</i> బాలుడి</span><span class="t">బాలుడ్ని</span><span class="r">baaludni</span></span>
+        <span class="w"><span class="t">ఎత్తుకున్నది.</span><span class="r">ettukunnadi</span></span>
+        <span class="w bad"><span class="said"><i>read as</i> ఆశర్యం</span><span class="t">ఆశ్చర్యం!</span><span class="r">aashcharyam</span></span>
+        <span class="w"><span class="t">బాలునికి</span><span class="r">baaluniki</span></span>
+        <span class="w"><span class="t">ఏం</span><span class="r">em</span></span>
+        <span class="w"><span class="t">కాలేదు.</span><span class="r">kaaledu</span></span>
+      </p>
+      <div class="legend"><span>Read correctly</span><span class="m">Misread</span></div>
+      <div class="scores">
+        <div><strong>93.5%</strong><small>accuracy, 4 errors in 62 words</small></div>
+        <div><strong>50</strong><small>words correct per minute, benchmark 60</small></div>
+        <div><strong>Approaching</strong><small>grade level</small></div>
+      </div>
+      <p class="plan"><b>What broke:</b> conjunct letters, in 3 of the 4 errors.<br><b>Practice next:</b> <span class="te" lang="te">బాలుడ్ని · ఆశ్చర్యం · నడుస్తుంటే</span>, then a re-read.</p>
+      <figcaption class="note">From the working app, with a sample class. Romanised spelling under each word helps a struggling reader.</figcaption>
+    </figure>
+  </div>
+</section>
+
+<section class="problem" aria-labelledby="problem-title">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">The gap</p>
+      <h2 id="problem-title" style="margin-top:12px">A mark says a child is behind. It does not say why.</h2>
+    </div>
+    <div class="body">
+      <p>Oral reading is checked rarely, on paper, and the results arrive after the lesson has moved on. They do not say which letters or words broke: guninthalu, ottulu, or fluency. So the child is given the whole chapter again instead of the one thing that broke.</p>
+      <p>Teachers know a child's reading the moment they hear it. What they lack is the time to hear every child often, and the quietest child is usually heard least.</p>
+    </div>
+  </div>
+</section>
+
+<section id="how" aria-labelledby="how-title">
+  <div class="wrap">
+    <div class="steps-head">
+      <p class="eyebrow">How it works</p>
+      <h2 id="how-title" style="margin-top:12px">One minute of reading becomes a plan for tomorrow.</h2>
+    </div>
+    <ol class="steps">
+      <li><h3>Pick a child</h3><p>The class list opens on whoever has not been heard yet.</p></li>
+      <li><h3>The child reads</h3><p>About a minute from their own textbook, on a full screen with nothing else on it.</p></li>
+      <li><h3>Every word is marked</h3><p>The app knows the words on the page and matches the voice against them: read, misread or missed. It reports accuracy and words correct per minute.</p></li>
+      <li><h3>The trouble gets a name</h3><p>Conjunct letters, double letters, long words or pace, worked out from which kind of word broke.</p></li>
+      <li><h3>Practice, then a re-read</h3><p>Short practice on exactly those words, then a re-read that shows whether it helped.</p></li>
+    </ol>
+  </div>
+</section>
+
+<section class="app" id="app" aria-labelledby="app-title">
+  <div class="wrap">
+    <div class="app-head">
+      <div>
+        <p class="eyebrow">The app</p>
+        <h2 id="app-title" style="margin-top:12px">Built and working today.</h2>
+      </div>
+      <p>Screens from the working app, using a sample class. The interface runs fully in Telugu or English.</p>
+    </div>
+    <div class="shots">
+      <figure>
+        <img src="img/read-report.jpg" width="1400" height="1125" loading="lazy" alt="Detailed read report: a Telugu passage with each word marked, misread words in red, accuracy 93.5 percent, 50 words correct per minute, and a list of the words that broke with how each was read.">
+        <figcaption><b>Detailed read report.</b> Opens the moment the child finishes: every word marked, the words that broke, and how each one was read. The teacher can change any mark with a tap.</figcaption>
+      </figure>
+      <figure>
+        <img src="img/reading-insights.jpg" width="1600" height="1000" loading="lazy" alt="Reading Insights for a Grade 3 class: children heard, share at grade level, average accuracy, words correct per minute, a proficiency breakdown, a progress trend and recommended actions.">
+        <figcaption><b>Reading Insights.</b> Where the class stands, what is improving, and which children to take as a small group, by the trouble they share.</figcaption>
+      </figure>
+    </div>
+  </div>
+</section>
+
+<section class="trust" aria-labelledby="trust-title">
+  <div class="wrap">
+    <p class="eyebrow">Why teachers can rely on it</p>
+    <h2 id="trust-title" style="margin-top:12px">Built for an assessment, where a wrong mark matters.</h2>
+    <div class="points">
+      <div><h3>It checks against the page</h3><p>General speech-to-text guesses what a speaker meant and quietly fixes mistakes. Aksharabhyaas knows the passage before the child begins, matches the voice against those exact words, and keeps what it heard for each one.</p></div>
+      <div><h3>The teacher has the final say</h3><p>Any word can be re-marked with a tap. The app does the listening and the arithmetic; the teacher decides.</p></div>
+      <div><h3>Telugu first</h3><p>Built for Telugu script, including guninthalu and ottulu, with an easy romanised spelling under each word. English runs through the same steps.</p></div>
+      <div><h3>Nothing new to buy or print</h3><p>One ordinary Android phone serves a whole class. Passages come from the SCERT textbooks the state already owns, and records belong to the state, in line with the DPDP Act.</p></div>
+    </div>
+  </div>
+</section>
+
+<section class="status" id="pilot" aria-labelledby="pilot-title">
+  <div class="wrap">
+    <p class="eyebrow">Where it stands</p>
+    <h2 id="pilot-title">Ready for a classroom pilot.</h2>
+    <div class="cols">
+      <div>
+        <h3>Working today</h3>
+        <ul>
+          <li>Word-by-word scoring on real SCERT Telugu passages</li>
+          <li>Detailed read report and class insights</li>
+          <li>Practice on the words that broke, and a re-read</li>
+          <li>Full Telugu and English interface</li>
+        </ul>
+      </div>
+      <div>
+        <h3>Next</h3>
+        <ul>
+          <li>Speech recognition on the phone itself, so it runs offline with no cost per reading</li>
+          <li>Testing with children's voices in real classrooms</li>
+        </ul>
+      </div>
+      <div>
+        <h3>The pilot we propose</h3>
+        <p>Government schools, two grades, one term, in Telugu and English. We report each child's reading at the start and end of term, and measure how often the app agrees with the teacher.</p>
+      </div>
+    </div>
+    <div class="demo">
+      <strong>Live demo · 1 December 2026</strong>
+      <span>T-Hub, Hyderabad · Telangana Innovation Startup Challenge 2026, Challenge 06: Every Child Reads</span>
+    </div>
+  </div>
+</section>
+
+<section class="team" id="contact" aria-labelledby="contact-title">
+  <div class="wrap">
+    <div>
+      <p class="eyebrow">Team</p>
+      <h2 style="margin-top:12px">Founded by Bhavani Srikrishna Chavali.</h2>
+      <p>Four years building learning software for Indian classrooms. The name comes from <span class="name-te" lang="te">అక్షరాభ్యాసం</span>, the day a child begins learning letters.</p>
+    </div>
+    <div>
+      <p class="eyebrow">Contact</p>
+      <h2 id="contact-title" style="margin-top:12px">Schools, departments and partners.</h2>
+      <p>Write to us about a pilot, a demo, or working together.</p>
+      <a class="mail" href="mailto:hello@aksharabhyaas.com">hello@aksharabhyaas.com</a>
+    </div>
+  </div>
+</section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <span>© 2026 Aksharabhyaas</span>
+    <span>Reading assessment for Telangana's classrooms, in Telugu and English.</span>
+  </div>
+</footer>
+
+</body>
+</html>
