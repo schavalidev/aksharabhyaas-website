@@ -20,7 +20,7 @@
 :root {
   --paper: #f4f6f0; --card: #ffffff; --ink: #19233e; --muted: #556075; --line: #dce2d6;
   --sage: #4b7a62; --leaf: #80b19b; --leaf-soft: #e4efe8; --turmeric: #f1b746; --page: #e9d990;
-  --red: #b5432d; --red-soft: #fbe4dd; --band: #19233e; --band-fg: #eef1ea; --band-muted: #aeb8c8; --band-line: #2f3b5a;
+  --red: #b5432d; --red-soft: #fbe4dd; --band: #19233e; --band-fg: #eef1ea; --band-muted: #aeb8c8; --band-line: #2f3b5a; --frame: #19233e;
   --display: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --body: "Manrope", system-ui, -apple-system, "Segoe UI", sans-serif;
   --te: "Noto Serif Telugu", "Noto Sans Telugu", "Telugu Sangam MN", serif;
@@ -29,13 +29,13 @@
   :root:not([data-theme="light"]) {
     --paper: #0f1626; --card: #172035; --ink: #e8ece4; --muted: #a4aebf; --line: #283450;
     --sage: #92c3a8; --leaf-soft: #1b3329; --red: #f08c74; --red-soft: #3e231e;
-    --band: #0a1020; --band-fg: #eef1ea; --band-muted: #9ca8bb; --band-line: #253150; color-scheme: dark;
+    --band: #0a1020; --band-fg: #eef1ea; --band-muted: #9ca8bb; --band-line: #253150; --frame: #34405e; color-scheme: dark;
   }
 }
 :root[data-theme="dark"] {
   --paper: #0f1626; --card: #172035; --ink: #e8ece4; --muted: #a4aebf; --line: #283450;
   --sage: #92c3a8; --leaf-soft: #1b3329; --red: #f08c74; --red-soft: #3e231e;
-  --band: #0a1020; --band-fg: #eef1ea; --band-muted: #9ca8bb; --band-line: #253150; color-scheme: dark;
+  --band: #0a1020; --band-fg: #eef1ea; --band-muted: #9ca8bb; --band-line: #253150; --frame: #34405e; color-scheme: dark;
 }
 * { box-sizing: border-box; }
 html { scroll-behavior: smooth; }
@@ -107,21 +107,22 @@ section { padding-block: 72px; }
 .problem p + p { margin-top: 14px; }
 .problem .body { color: var(--muted); font-size: 1.1rem; max-width: 34em; }
 
-.steps-head { max-width: 40em; }
-.steps { list-style: none; margin: 40px 0 0; padding: 0; display: grid; grid-template-columns: repeat(5, minmax(0, 1fr)); gap: 18px; counter-reset: step; }
-.steps li { counter-increment: step; border-top: 3px solid var(--ink); padding-top: 16px; min-width: 0; }
-.steps li::before { content: counter(step); display: block; font: 600 0.9rem/1 var(--display); color: var(--sage); margin-bottom: 10px; }
-.steps h3 { font-size: 1.12rem; }
-.steps p { margin-top: 8px; color: var(--muted); font-size: 0.97rem; line-height: 1.55; }
-
-.app { background: var(--card); border-block: 1px solid var(--line); }
-.app-head { display: flex; justify-content: space-between; align-items: end; gap: 24px; flex-wrap: wrap; }
-.app-head p { color: var(--muted); max-width: 30em; }
-.shots { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1.15fr); gap: 28px; margin-top: 40px; align-items: start; }
-figure { margin: 0; min-width: 0; }
-figure img { border: 1px solid var(--line); border-radius: 12px; background: #fff; }
-figcaption { margin-top: 12px; font-size: 0.95rem; color: var(--muted); }
-figcaption b { color: var(--ink); font-weight: 600; }
+.features { background: var(--card); border-block: 1px solid var(--line); }
+.features-head { max-width: 40em; }
+.features-head > p:last-child { margin-top: 14px; color: var(--muted); }
+.feature { display: grid; grid-template-columns: minmax(0, 0.8fr) minmax(0, 1.2fr); gap: 56px; align-items: center; padding-block: 56px; border-top: 1px solid var(--line); }
+.features-head + .feature { margin-top: 40px; }
+.feature.flip { grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr); }
+.feature.flip .feature-text { order: 2; }
+.feature-text { min-width: 0; max-width: 30em; }
+.feature .num { display: block; font: 600 0.9rem/1 var(--display); color: var(--sage); margin-bottom: 12px; font-variant-numeric: tabular-nums; }
+.feature h3 { font-size: clamp(1.4rem, 2.4vw, 1.75rem); font-weight: 500; letter-spacing: -0.02em; }
+.feature p { margin-top: 12px; color: var(--muted); }
+.shot { margin: 0; min-width: 0; }
+.shot img { border: 1px solid var(--line); border-radius: 12px; background: #fff; box-shadow: 0 24px 48px -34px rgba(25, 35, 62, 0.5); }
+.shot.narrow { max-width: 500px; justify-self: center; }
+.phone { margin: 0; justify-self: center; width: min(290px, 100%); padding: 9px; border-radius: 38px; background: var(--frame); box-shadow: 0 28px 50px -34px rgba(25, 35, 62, 0.6); }
+.phone img { border-radius: 30px; background: #fff; }
 
 .trust .wrap > h2 { max-width: 18em; }
 .points { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 36px 48px; margin-top: 40px; }
@@ -150,18 +151,18 @@ footer { border-top: 1px solid var(--line); padding-block: 28px 40px; font-size:
 footer .wrap { display: flex; justify-content: space-between; gap: 12px 24px; flex-wrap: wrap; }
 
 @media (max-width: 980px) {
-  .steps { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .cols { grid-template-columns: minmax(0, 1fr); }
 }
 @media (max-width: 860px) {
-  .hero .wrap, .problem .wrap, .shots, .team .wrap { grid-template-columns: minmax(0, 1fr); }
+  .hero .wrap, .problem .wrap, .team .wrap { grid-template-columns: minmax(0, 1fr); }
   .hero { padding-block: 16px 56px; }
   section { padding-block: 56px; }
   .points { grid-template-columns: minmax(0, 1fr); gap: 28px; }
+  .feature, .feature.flip { grid-template-columns: minmax(0, 1fr); gap: 28px; padding-block: 40px; }
+  .feature.flip .feature-text { order: 0; }
 }
 @media (max-width: 520px) {
   .top nav { display: none; }
-  .steps { grid-template-columns: minmax(0, 1fr); }
   .record { padding: 20px 16px 18px; }
   .w .t { font-size: 1.25rem; }
   .scores strong { font-size: 1.3rem; }
@@ -177,8 +178,7 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px 24px; fl
       <span><strong>Aksharabhyaas</strong><small lang="te">అక్షరాభ్యాసం</small></span>
     </a>
     <nav aria-label="Sections">
-      <a href="#how">How it works</a>
-      <a href="#app">The app</a>
+      <a href="#how">What it does</a>
       <a href="#pilot">Pilot</a>
       <a href="#contact">Contact</a>
     </nav>
@@ -204,14 +204,14 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px 24px; fl
         <span>Telugu reader, Lesson 2 · <span class="te" lang="te">బాల భీముడు</span></span>
       </div>
       <p class="passage" lang="te">
-        <span class="w"><span class="t">వెంటనే</span><span class="r">ventane</span></span>
-        <span class="w"><span class="t">బాధపడుకుంటూ</span><span class="r">baadhapadukuntoo</span></span>
+        <span class="w"><span class="t">వెంటనే</span><span class="r">ventanee</span></span>
+        <span class="w"><span class="t">బాధపడుకుంటూ</span><span class="r">baadhapadukuntuu</span></span>
         <span class="w bad"><span class="said"><i>read as</i> బాలుడి</span><span class="t">బాలుడ్ని</span><span class="r">baaludni</span></span>
         <span class="w"><span class="t">ఎత్తుకున్నది.</span><span class="r">ettukunnadi</span></span>
         <span class="w bad"><span class="said"><i>read as</i> ఆశర్యం</span><span class="t">ఆశ్చర్యం!</span><span class="r">aashcharyam</span></span>
         <span class="w"><span class="t">బాలునికి</span><span class="r">baaluniki</span></span>
-        <span class="w"><span class="t">ఏం</span><span class="r">em</span></span>
-        <span class="w"><span class="t">కాలేదు.</span><span class="r">kaaledu</span></span>
+        <span class="w"><span class="t">ఏం</span><span class="r">eem</span></span>
+        <span class="w"><span class="t">కాలేదు.</span><span class="r">kaaleedu</span></span>
       </p>
       <div class="legend"><span>Read correctly</span><span class="m">Misread</span></div>
       <div class="scores">
@@ -238,41 +238,77 @@ footer .wrap { display: flex; justify-content: space-between; gap: 12px 24px; fl
   </div>
 </section>
 
-<section id="how" aria-labelledby="how-title">
+<section class="features" id="how" aria-labelledby="how-title">
   <div class="wrap">
-    <div class="steps-head">
-      <p class="eyebrow">How it works</p>
-      <h2 id="how-title" style="margin-top:12px">One minute of reading becomes a plan for tomorrow.</h2>
+    <div class="features-head">
+      <p class="eyebrow">What the app does</p>
+      <h2 id="how-title" style="margin-top:12px">From one child reading aloud to a plan for the whole class.</h2>
+      <p>Screens from the working app, using a sample class.</p>
     </div>
-    <ol class="steps">
-      <li><h3>Pick a child</h3><p>The class list opens on whoever has not been heard yet.</p></li>
-      <li><h3>The child reads</h3><p>About a minute from their own textbook, on a full screen with nothing else on it.</p></li>
-      <li><h3>Every word is marked</h3><p>The app knows the words on the page and matches the voice against them: read, misread or missed. It reports accuracy and words correct per minute.</p></li>
-      <li><h3>The trouble gets a name</h3><p>Conjunct letters, double letters, long words or pace, worked out from which kind of word broke.</p></li>
-      <li><h3>Practice, then a re-read</h3><p>Short practice on exactly those words, then a re-read that shows whether it helped.</p></li>
-    </ol>
-  </div>
-</section>
-
-<section class="app" id="app" aria-labelledby="app-title">
-  <div class="wrap">
-    <div class="app-head">
-      <div>
-        <p class="eyebrow">The app</p>
-        <h2 id="app-title" style="margin-top:12px">Built and working today.</h2>
+    <article class="feature">
+      <div class="feature-text">
+        <span class="num">1</span>
+        <h3>Who to hear next</h3>
+        <p>The reading queue puts children not heard this week first, and shows who is practising or due a re-read. Each passage comes from the child's own SCERT reader, with the lesson and textbook pages named.</p>
       </div>
-      <p>Screens from the working app, using a sample class. The interface runs fully in Telugu or English.</p>
-    </div>
-    <div class="shots">
-      <figure>
-        <img src="img/read-report.jpg" width="1400" height="1125" loading="lazy" alt="Detailed read report: a Telugu passage with each word marked, misread words in red, accuracy 93.5 percent, 50 words correct per minute, and a list of the words that broke with how each was read.">
-        <figcaption><b>Detailed read report.</b> Opens the moment the child finishes: every word marked, the words that broke, and how each one was read. The teacher can change any mark with a tap.</figcaption>
-      </figure>
-      <figure>
-        <img src="img/reading-insights.jpg" width="1600" height="1000" loading="lazy" alt="Reading Insights for a Grade 3 class: children heard, share at grade level, average accuracy, words correct per minute, a proficiency breakdown, a progress trend and recommended actions.">
-        <figcaption><b>Reading Insights.</b> Where the class stands, what is improving, and which children to take as a small group, by the trouble they share.</figcaption>
-      </figure>
-    </div>
+      <figure class="shot"><img src="img/reading-queue.jpg" width="1600" height="1000" loading="lazy" alt="Start Assessment screen: a reading queue with the next child first, status chips such as Re-read due and Practising, and a Grade 3 Telugu passage from the SCERT reader."></figure>
+    </article>
+    <article class="feature flip phone-row">
+      <div class="feature-text">
+        <span class="num">2</span>
+        <h3>Only the page in front of the child</h3>
+        <p>The reading opens full screen: the passage in large type and one button to finish. Nothing to tap by mistake, nothing to distract a nervous reader.</p>
+      </div>
+      <figure class="phone"><img src="img/child-screen.jpg" width="600" height="1298" loading="lazy" alt="Phone screen showing only a Telugu passage in large type and a single Finish reading button."></figure>
+    </article>
+    <article class="feature">
+      <div class="feature-text">
+        <span class="num">3</span>
+        <h3>Every word marked the moment they finish</h3>
+        <p>Each word is marked read, misread or missed, with what the child said for every misread word. Accuracy and words correct per minute are shown against the grade benchmark. The teacher can change any mark with a tap.</p>
+      </div>
+      <figure class="shot"><img src="img/read-report.jpg" width="1400" height="1125" loading="lazy" alt="Detailed read report: the passage with misread words in red, accuracy 93.5 percent, 50 words correct per minute against a benchmark of 60, and the list of words that broke."></figure>
+    </article>
+    <article class="feature flip">
+      <div class="feature-text">
+        <span class="num">4</span>
+        <h3>The trouble gets a name, and a plan</h3>
+        <p>Errors are grouped by the kind of word that broke: conjunct letters, double letters, long words. The next step lists the exact words to practise, with an easy spelling under each, and a plan of short sessions for the week.</p>
+      </div>
+      <figure class="shot narrow"><img src="img/what-broke.jpg" width="985" height="1100" loading="lazy" alt="What Broke: mixed conjuncts 3 of 6, double letters 1 of 15, long words 0 of 3, ordinary words 0 of 38. Next Step: four focus words with easy spelling and a plan of three short sessions this week."></figure>
+    </article>
+    <article class="feature phone-row">
+      <div class="feature-text">
+        <span class="num">5</span>
+        <h3>Practice on exactly those words</h3>
+        <p>One word at a time, in large type with its easy spelling. The child can listen to the word, then read it aloud, and the teacher marks it.</p>
+      </div>
+      <figure class="phone"><img src="img/practice.jpg" width="600" height="1298" loading="lazy" alt="Practice screen on a phone: one Telugu word with its easy spelling, Listen and Read buttons, and the teacher marking Read correctly or Not yet."></figure>
+    </article>
+    <article class="feature flip">
+      <div class="feature-text">
+        <span class="num">6</span>
+        <h3>A re-read shows whether it helped</h3>
+        <p>After practice the child reads the passage again and the report shows the change. In this sample, accuracy rose from 93.5% to 100% and speed from 50 to 62 words correct per minute. Miscues are sorted by how serious they are, and self-corrections are not counted as errors.</p>
+      </div>
+      <figure class="shot"><img src="img/re-read.jpg" width="1400" height="1178" loading="lazy" alt="Reading report: a re-read line showing accuracy 93.5 to 100 percent and 50 to 62 words correct per minute, then the assessment summary, reading details and miscues by strength."></figure>
+    </article>
+    <article class="feature">
+      <div class="feature-text">
+        <span class="num">7</span>
+        <h3>The whole class at a glance</h3>
+        <p>How many children read at grade level, the class trend, which skills are improving, and which children to take as a small group because they share the same trouble.</p>
+      </div>
+      <figure class="shot"><img src="img/reading-insights.jpg" width="1600" height="1000" loading="lazy" alt="Reading Insights: children heard, share at grade level, average accuracy and words correct per minute, a proficiency chart, a progress trend and recommended actions."></figure>
+    </article>
+    <article class="feature flip">
+      <div class="feature-text">
+        <span class="num">8</span>
+        <h3>Every screen in Telugu or English</h3>
+        <p>One tap switches the whole app, menus and reports included, so teachers work in the language they prefer.</p>
+      </div>
+      <figure class="shot"><img src="img/telugu.jpg" width="1600" height="1000" loading="lazy" alt="The Reading Insights screen with the whole interface in Telugu."></figure>
+    </article>
   </div>
 </section>
 
